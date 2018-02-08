@@ -11,7 +11,7 @@ import org.springframework.session.data.redis.config.annotation.web.http.EnableR
  *@EnableRedisHttpSession(maxInactiveIntervalInSeconds= 60) //1分钟失效
  *相关配置修改
  *在application.properties修改redis配置信息（请自行安装redis），请根据实际修改。如：
- *spring.redis.host=192.168.1.103
+ *spring.redis.host=127.0.0.1
  *所有实体类实现Serializable接口
  *public classSysResourceimplementsSerializable
  *查看效果
@@ -27,6 +27,6 @@ import org.springframework.session.data.redis.config.annotation.web.http.EnableR
  * @time 2018-02-06-10:13
  */
 @Configuration
-@EnableRedisHttpSession(maxInactiveIntervalInSeconds=60)
+@EnableRedisHttpSession()
 public class RedisSessionConfig {
 }

@@ -5,7 +5,7 @@
     <title>Title</title>
 </head>
 <body>
-<form method="POST" enctype="multipart/form-data" action="/spring-boot/batch/upload">
+<form method="POST" enctype="multipart/form-data" action="/batch/upload">
     <p>文件：<input type="file" name="file"/></p>
     <p>文件1：<input type="file" name="file"/></p>
     <p>文件2：<input type="file" name="file"/></p>

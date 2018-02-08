@@ -2,15 +2,19 @@ package com.boot.Appliction;
 
 import com.aceyan.framework.properties.Wisely2Settings;
 import com.aceyan.framework.properties.WiselySettings;
+import com.alibaba.fastjson.JSON;
 import com.boot.entity.Greeting;
 import com.boot.entity.User;
+import com.boot.entity.UserInfo;
+import com.boot.service.UserInfoServiceImpl;
 import com.boot.service.UserService;
+import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.boot.web.servlet.ServletRegistrationBean;
+import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
+import java.text.MessageFormat;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicLong;
 
@@ -21,6 +25,9 @@ public class HelloApplication {
 
     @Resource
     private UserService userService;
+
+    @Resource
+    private UserInfoServiceImpl userInfoService;
 
     @RequestMapping("/hello")
     public String hello(){
@@ -69,4 +76,13 @@ public class HelloApplication {
         System.err.println(wisely2Settings.getGender()+"---"+wisely2Settings.getName());
         return "SUCCESS";
     }
+    @RequestMapping(value = "/findByUsername",method = RequestMethod.POST)
+    @RequiresPermissions("userInfo:view")
+    public String findByUsername(String username,String password){
+        System.err.println(MessageFormat.format("userName = {0} , passWord = {1}",username,password));
+        UserInfo users = userInfoService.findByUsername(username);
+        System.err.println(JSON.toJSONString(users));
+        return "SUCCESS";
+    }
+
 }
