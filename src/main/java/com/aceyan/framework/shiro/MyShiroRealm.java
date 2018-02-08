@@ -110,13 +110,12 @@ public class MyShiroRealm extends AuthorizingRealm {
         * 获取之后可以在前端for循环显示所有链接;
         */
         //userInfo.setPermissions(userService.findPermissions(user));
-
+        System.err.println(getName());
         SimpleAuthenticationInfo authenticationInfo = new SimpleAuthenticationInfo(
                 userInfo,/*用户信息*/
                 userInfo.getPassword(),/*用户密码*/
                 ByteSource.Util.bytes(userInfo.getCredentialsSalt()),/*username + salt*/
                 getName());
-
 
         return authenticationInfo;
     }

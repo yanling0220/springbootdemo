@@ -2,6 +2,7 @@ package com.aceyan.framework.config;
 
 import com.aceyan.framework.shiro.MyShiroRealm;
 import org.apache.shiro.authc.credential.HashedCredentialsMatcher;
+import org.apache.shiro.cache.ehcache.EhCacheManager;
 import org.apache.shiro.mgt.SecurityManager;
 import org.apache.shiro.spring.security.interceptor.AuthorizationAttributeSourceAdvisor;
 import org.apache.shiro.spring.web.ShiroFilterFactoryBean;
@@ -81,6 +82,7 @@ public class ShiroConfiguration {
     public SecurityManager securityManager(){
         DefaultWebSecurityManager securityManager =  new DefaultWebSecurityManager();
         securityManager.setRealm(myShiroRealm());
+        securityManager.setCacheManager(ehCacheManager());
         return securityManager;
     }
 
@@ -124,4 +126,15 @@ public class ShiroConfiguration {
         authorizationAttributeSourceAdvisor.setSecurityManager(securityManager);
         return authorizationAttributeSourceAdvisor;
     }
+
+    @Bean
+    public EhCacheManager ehCacheManager(){
+        System.err.println("com.aceyan.framework.config.ShiroConfiguration.ehCacheManager");
+        EhCacheManager cacheManager = new EhCacheManager();
+        // 不设置则默认classpath:org/apache/shiro/cache/ehcache/ehcache.xml 中文件
+        cacheManager.setCacheManagerConfigFile("classpath:ehcache.xml");
+        return cacheManager;
+    }
+
+
 }

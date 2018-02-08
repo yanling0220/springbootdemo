@@ -76,13 +76,13 @@ public class HelloApplication {
         System.err.println(wisely2Settings.getGender()+"---"+wisely2Settings.getName());
         return "SUCCESS";
     }
-    @RequestMapping(value = "/findByUsername",method = RequestMethod.POST)
+    @RequestMapping(value = "/findByUsername",method = RequestMethod.GET)
     @RequiresPermissions("userInfo:view")
-    public String findByUsername(String username,String password){
+    public UserInfo findByUsername(String username,String password){
         System.err.println(MessageFormat.format("userName = {0} , passWord = {1}",username,password));
         UserInfo users = userInfoService.findByUsername(username);
         System.err.println(JSON.toJSONString(users));
-        return "SUCCESS";
+        return users;
     }
 
 }
