@@ -10,8 +10,11 @@ import com.boot.service.UserInfoServiceImpl;
 import com.boot.service.UserService;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.web.servlet.ServletRegistrationBean;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.cache.annotation.Cacheable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 
 import javax.annotation.Resource;
 import java.text.MessageFormat;
@@ -55,6 +58,8 @@ public class HelloApplication {
     }
 
     @RequestMapping("/queryAllUser")
+    @Cacheable(value="UserCache")
+    @RequiresPermissions("userInfo:view")
     public List<User> queryAllUser(){
        List<User> users =  userService.queryAllUser();
         return users;
@@ -79,7 +84,7 @@ public class HelloApplication {
     @RequestMapping(value = "/findByUsername",method = RequestMethod.GET)
     @RequiresPermissions("userInfo:view")
     public UserInfo findByUsername(String username,String password){
-        System.err.println(MessageFormat.format("userName = {0} , passWord = {1}",username,password));
+        System.err.println(MessageFormat.format("登录 ： userName = {0} , passWord = {1}",username,password));
         UserInfo users = userInfoService.findByUsername(username);
         System.err.println(JSON.toJSONString(users));
         return users;

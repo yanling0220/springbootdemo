@@ -3,7 +3,6 @@ package com.boot.service;
 import com.boot.dao.IUserDao;
 import com.boot.entity.User;
 import com.google.common.collect.Lists;
-import org.hibernate.annotations.Cache;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;

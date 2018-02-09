@@ -9,6 +9,7 @@
 <form action="" method="post">
     <p>账号：<input type="text" name="username" value="admin"/></p>
     <p>密码：<input type="password" name="password" value="admin"/></p>
+    <P><input type="checkbox" name="rememberMe" />记住我</P>
     <p><input type="submit" value="登录"/></p>
 </form>
 </body>

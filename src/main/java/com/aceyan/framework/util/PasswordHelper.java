@@ -1,8 +1,6 @@
 package com.aceyan.framework.util;
 
-import com.alibaba.fastjson.JSON;
 import com.boot.entity.UserInfo;
-import org.apache.shiro.authc.SimpleAuthenticationInfo;
 import org.apache.shiro.crypto.hash.SimpleHash;
 import org.apache.shiro.util.ByteSource;
 
