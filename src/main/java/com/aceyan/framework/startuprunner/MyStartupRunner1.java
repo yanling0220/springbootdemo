@@ -1,5 +1,7 @@
 package com.aceyan.framework.startuprunner;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
@@ -13,8 +15,9 @@ import org.springframework.stereotype.Component;
 @Component
 @Order(2)
 public class MyStartupRunner1 implements CommandLineRunner {
+    private static final Logger LOGGER = LoggerFactory.getLogger(MyStartupRunner1.class);
     @Override
     public void run(String... args) throws Exception {
-        System.err.println("MyStartupRunner1");
+        LOGGER.info("MyStartupRunner1");
     }
 }

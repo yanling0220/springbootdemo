@@ -1,6 +1,9 @@
 package com.aceyan.framework.filter;
 
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import javax.servlet.*;
 import javax.servlet.annotation.WebFilter;
 import java.io.IOException;
@@ -13,19 +16,20 @@ import java.io.IOException;
  */
 @WebFilter(filterName = "myFilter",urlPatterns = "/*")
 public class MyFilter implements Filter {
+    private static final Logger LOGGER = LoggerFactory.getLogger(MyFilter.class);
     @Override
     public void init(FilterConfig filterConfig) throws ServletException {
-        System.err.println("MyFilter 初始化");
+        LOGGER.info("MyFilter 初始化");
     }
 
     @Override
     public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain) throws IOException, ServletException {
-        System.err.println("MyFilter 过滤器执行");
+        LOGGER.info("MyFilter 过滤器执行");
         filterChain.doFilter(servletRequest,servletResponse);
     }
 
     @Override
     public void destroy() {
-        System.err.println("销毁");
+        LOGGER.info("销毁");
     }
 }
