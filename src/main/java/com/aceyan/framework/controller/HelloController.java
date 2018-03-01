@@ -2,6 +2,8 @@ package com.aceyan.framework.controller;
 
 import org.apache.shiro.authc.IncorrectCredentialsException;
 import org.apache.shiro.authc.UnknownAccountException;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -18,6 +20,7 @@ import java.util.Map;
  */
 @Controller
 public class HelloController {
+    private static final Logger LOGGER = LoggerFactory.getLogger(HelloController.class);
     @Value("${application.hello}")
     private String hello;
     @RequestMapping("/helloJsp")
@@ -25,7 +28,7 @@ public class HelloController {
         System.out.println("HelloController.helloJsp().hello="+hello);
         map.put("hello",hello);
         map.put("date",new Date());
-        System.err.println("HelloController.helloJsp().hello="+hello);
+        LOGGER.info("HelloController.helloJsp().hello="+hello);
         return"/helloJsp";
     }
 
@@ -39,7 +42,7 @@ public class HelloController {
     }
     @RequestMapping(value = "/login",method = {RequestMethod.POST})
     public String login(HttpServletRequest request,Map<String,Object> map){
-        System.err.println("Login");
+        LOGGER.info("Login");
         // 登录失败从request中获取shiro处理的异常信息。
         // shiroLoginFailure:就是shiro异常类的全类名.
         String exception = (String) request.getAttribute("shiroLoginFailure");

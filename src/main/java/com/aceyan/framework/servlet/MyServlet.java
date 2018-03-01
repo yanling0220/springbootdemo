@@ -1,5 +1,8 @@
 package com.aceyan.framework.servlet;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -15,10 +18,11 @@ import java.io.PrintWriter;
 @WebServlet(urlPatterns = "/myServlet/*",description = "Servlet 说明")
 public class MyServlet extends HttpServlet {
     private static final long serialVersionUID = -4331845878244289893L;
+    private static final Logger LOGGER = LoggerFactory.getLogger(MyServlet.class);
 
     @Override
     protected void service(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        System.err.println("===============service=================");
+        LOGGER.info("===============service=================");
         resp.setContentType("text/html");
 
         PrintWriter out = resp.getWriter();

@@ -1,5 +1,7 @@
 package com.aceyan.framework.util;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeansException;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
@@ -9,17 +11,18 @@ import org.springframework.context.ApplicationContextAware;
  * @time 2018-01-23-14:44
  */
 public class SpringUtil2 implements ApplicationContextAware{
+    private static final Logger LOGGER = LoggerFactory.getLogger(SpringUtil2.class);
     private static ApplicationContext applicationContext = null;
     @Override
     public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {
         if (SpringUtil2.applicationContext == null){
             SpringUtil2.applicationContext = applicationContext;
         }
-        System.err.println("---------------------------------------------------------------------");
-        System.err.println("---------------------------------------------------------------------");
-        System.err.println("---------------com.aceyan.framework.util.SpringUtil2------------------------------------------------------");
-        System.err.println("========ApplicationContext配置成功,在普通类可以通过调用SpringUtils.getAppContext()获取applicationContext对象,applicationContext="+SpringUtil2.applicationContext+"========");
-        System.err.println("---------------------------------------------------------------------");
+        LOGGER.info("---------------------------------------------------------------------");
+        LOGGER.info("---------------------------------------------------------------------");
+        LOGGER.info("---------------com.aceyan.framework.util.SpringUtil2------------------------------------------------------");
+        LOGGER.info("========ApplicationContext配置成功,在普通类可以通过调用SpringUtils.getAppContext()获取applicationContext对象,applicationContext="+SpringUtil2.applicationContext+"========");
+        LOGGER.info("---------------------------------------------------------------------");
     }
 
     /**

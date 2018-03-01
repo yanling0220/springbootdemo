@@ -14,6 +14,8 @@ import org.apache.shiro.authz.SimpleAuthorizationInfo;
 import org.apache.shiro.realm.AuthorizingRealm;
 import org.apache.shiro.subject.PrincipalCollection;
 import org.apache.shiro.util.ByteSource;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.annotation.Resource;
 
@@ -24,7 +26,7 @@ import javax.annotation.Resource;
  * @time 2018-02-06-16:58
  */
 public class MyShiroRealm extends AuthorizingRealm {
-
+    private static final Logger LOGGER = LoggerFactory.getLogger(MyShiroRealm.class);
     @Resource
     private UserInfoServiceImpl userInfoService;
     /**
@@ -88,7 +90,7 @@ public class MyShiroRealm extends AuthorizingRealm {
      */
     @Override
     protected AuthenticationInfo doGetAuthenticationInfo(AuthenticationToken authenticationToken) throws AuthenticationException {
-        System.err.println("com.aceyan.framework.shiro.MyShiroRealm.doGetAuthorizationInfo");
+        LOGGER.info("com.aceyan.framework.shiro.MyShiroRealm.doGetAuthorizationInfo");
         /**
          * 用户输入的账号
          */
@@ -99,7 +101,7 @@ public class MyShiroRealm extends AuthorizingRealm {
          */
         ///实际项目中，这里可以根据实际情况做缓存，如果不做，Shiro自己也是有时间间隔机制，2分钟内不会重复执行该方法
         UserInfo userInfo = userInfoService.findByUsername(userName);
-        System.err.println("userInfo ==>" + userInfo.toString());
+        LOGGER.info("userInfo ==>" + userInfo.toString());
         if(userInfo == null){
             return null;
         }
@@ -110,7 +112,7 @@ public class MyShiroRealm extends AuthorizingRealm {
         * 获取之后可以在前端for循环显示所有链接;
         */
         //userInfo.setPermissions(userService.findPermissions(user));
-        System.err.println(getName());
+        LOGGER.info(getName());
         SimpleAuthenticationInfo authenticationInfo = new SimpleAuthenticationInfo(
                 userInfo,/*用户信息*/
                 userInfo.getPassword(),/*用户密码*/

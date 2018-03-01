@@ -1,5 +1,8 @@
 package com.aceyan.framework.listener;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
 import javax.servlet.annotation.WebListener;
@@ -12,14 +15,15 @@ import javax.servlet.annotation.WebListener;
  */
 @WebListener
 public class MyServletContextListener implements ServletContextListener{
+    private static final Logger LOGGER = LoggerFactory.getLogger(MyServletContextListener.class);
 
     @Override
     public void contextInitialized(ServletContextEvent servletContextEvent) {
-        System.err.println("监听器 初始化");
+        LOGGER.info("监听器 初始化");
     }
 
     @Override
     public void contextDestroyed(ServletContextEvent servletContextEvent) {
-        System.err.println("监听器 销毁");
+        LOGGER.info("监听器 销毁");
     }
 }

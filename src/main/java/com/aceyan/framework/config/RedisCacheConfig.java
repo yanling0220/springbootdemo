@@ -1,5 +1,7 @@
 package com.aceyan.framework.config;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.cache.CacheManager;
 import org.springframework.cache.annotation.CachingConfigurerSupport;
 import org.springframework.cache.annotation.EnableCaching;
@@ -23,7 +25,7 @@ import java.lang.reflect.Method;
 @Configuration
 @EnableCaching//启用缓存，这个注解很重要；
 public class RedisCacheConfig extends CachingConfigurerSupport{
-
+    private static final Logger LOGGER = LoggerFactory.getLogger(RedisCacheConfig.class);
     /**
      * 缓存管理器
      * @param redisTemplate
@@ -66,7 +68,7 @@ public class RedisCacheConfig extends CachingConfigurerSupport{
      */
     @Override
     public KeyGenerator keyGenerator() {
-        System.err.println("RedisCacheConfig.keyGenerator()");
+        LOGGER.info("RedisCacheConfig.keyGenerator()");
         return new KeyGenerator() {
             @Override
             public Object generate(Object o, Method method, Object... objects) {
@@ -77,7 +79,7 @@ public class RedisCacheConfig extends CachingConfigurerSupport{
                 for (Object o1:objects){
                     sb.append(o1.toString());
                 }
-                System.err.println("keyGenerator=" +sb.toString());
+                LOGGER.info("keyGenerator=" +sb.toString());
                 return sb.toString();
             }
         };

@@ -9,6 +9,8 @@ import org.apache.shiro.spring.web.ShiroFilterFactoryBean;
 import org.apache.shiro.web.mgt.CookieRememberMeManager;
 import org.apache.shiro.web.mgt.DefaultWebSecurityManager;
 import org.apache.shiro.web.servlet.SimpleCookie;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -45,6 +47,7 @@ import java.util.Map;
  */
 @Configuration
 public class ShiroConfiguration {
+    private static final Logger LOGGER = LoggerFactory.getLogger(ShiroConfiguration.class);
     /**
      * ShiroFilterFactoryBean 处理拦截资源文件问题。
      * 注意：单独一个ShiroFilterFactoryBean配置是或报错的，以为在
@@ -58,7 +61,7 @@ public class ShiroConfiguration {
      */
     @Bean
     public ShiroFilterFactoryBean shiroFilter(SecurityManager securityManager){
-        System.err.println("com.aceyan.framework.config.ShiroConfiguration.shiroFilter()");
+        LOGGER.info("com.aceyan.framework.config.ShiroConfiguration.shiroFilter()");
         ShiroFilterFactoryBean shiroFilterFactoryBean = new ShiroFilterFactoryBean();
         // 必须设置 SecurityManager
         shiroFilterFactoryBean.setSecurityManager(securityManager);
@@ -143,7 +146,7 @@ public class ShiroConfiguration {
      */
     @Bean
     public EhCacheManager ehCacheManager(){
-        System.err.println("com.aceyan.framework.config.ShiroConfiguration.ehCacheManager");
+        LOGGER.info("com.aceyan.framework.config.ShiroConfiguration.ehCacheManager");
         EhCacheManager cacheManager = new EhCacheManager();
         // 不设置则默认classpath:org/apache/shiro/cache/ehcache/ehcache-shiro.xml 中文件
         cacheManager.setCacheManagerConfigFile("classpath:config/ehcache-shiro.xml");
@@ -152,7 +155,7 @@ public class ShiroConfiguration {
 
     @Bean
     public SimpleCookie rememberMeCookie(){
-        System.err.println("com.aceyan.framework.config.ShiroConfiguration.rememberMeCookie");
+        LOGGER.info("com.aceyan.framework.config.ShiroConfiguration.rememberMeCookie");
         //这个参数是cookie的名称，对应前端的checkbox的name = rememberMe
         SimpleCookie simpleCookie = new SimpleCookie("rememberMe");
         /*cookie 生效时间*/
@@ -166,7 +169,7 @@ public class ShiroConfiguration {
      */
     @Bean
     public CookieRememberMeManager rememberMeManager(){
-        System.err.println("com.aceyan.framework.config.ShiroConfiguration.rememberMeManager");
+        LOGGER.info("com.aceyan.framework.config.ShiroConfiguration.rememberMeManager");
         CookieRememberMeManager rememberMeManager = new CookieRememberMeManager();
         rememberMeManager.setCookie(rememberMeCookie());
         return rememberMeManager;

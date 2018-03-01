@@ -1,5 +1,7 @@
 package com.aceyan.framework.properties;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.bind.RelaxedPropertyResolver;
 import org.springframework.context.EnvironmentAware;
@@ -12,14 +14,14 @@ import org.springframework.core.env.Environment;
  */
 @Configuration
 public class MyEnvironmentAware implements EnvironmentAware {
-
+    private static final Logger LOGGER = LoggerFactory.getLogger(MyEnvironmentAware.class);
     @Value("${application.hello}")
     private String text;
 
     @Override
     public void setEnvironment(Environment environment) {
-        System.err.println("text : " + text);
-        System.err.println("Java Home : " + environment.getProperty("JAVA_HOME"));
+        LOGGER.info("text : " + text);
+        LOGGER.info("Java Home : " + environment.getProperty("JAVA_HOME"));
 
         //通过 environment同样能获取到application.properties配置的属性.
         System.out.println(environment.getProperty("spring.datasource.url"));

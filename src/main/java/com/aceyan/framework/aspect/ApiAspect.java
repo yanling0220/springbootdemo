@@ -27,7 +27,7 @@ public class ApiAspect {
     @Around(value="apiController() && requestMethod() &&args(name)")
     public Object doValidate(ProceedingJoinPoint pjp,String name) throws Throwable {
         Object object = pjp.proceed();
-        System.err.println("doValidate");
+        LOGGER.info("doValidate");
 
         return object;
     }
@@ -35,7 +35,7 @@ public class ApiAspect {
 
     @Before(value = "apiController() && requestMethod()")
     public void doInjectRequest() {
-        System.err.println("demo... before");
+        LOGGER.info("demo... before");
     }
 
 

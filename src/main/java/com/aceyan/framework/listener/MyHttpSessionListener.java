@@ -1,5 +1,8 @@
 package com.aceyan.framework.listener;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import javax.servlet.annotation.WebListener;
 import javax.servlet.http.HttpSessionEvent;
 import javax.servlet.http.HttpSessionListener;
@@ -12,12 +15,13 @@ import javax.servlet.http.HttpSessionListener;
  */
 @WebListener
 public class MyHttpSessionListener implements HttpSessionListener {
+    private static final Logger LOGGER = LoggerFactory.getLogger(MyHttpSessionListener.class);
     @Override
     public void sessionCreated(HttpSessionEvent httpSessionEvent) {
-        System.err.println("session 创建 ");
+        LOGGER.info("session 创建 ");
     }
     @Override
     public void sessionDestroyed(HttpSessionEvent httpSessionEvent) {
-        System.err.println("session 销毁 ");
+        LOGGER.info("session 销毁 ");
     }
 }

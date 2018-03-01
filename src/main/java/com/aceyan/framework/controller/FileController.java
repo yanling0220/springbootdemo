@@ -1,5 +1,7 @@
 package com.aceyan.framework.controller;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -23,7 +25,7 @@ import java.util.List;
  */
 @Controller
 public class FileController {
-
+    private static final Logger LOGGER = LoggerFactory.getLogger(FileController.class);
     @RequestMapping("/file")
     public String file(){
         return "/file";
@@ -59,13 +61,13 @@ public class FileController {
                 out.write(file.getBytes());
                 out.flush();
             } catch (Exception e) {
-                System.err.println("上传失败 errMsg =  "+e.getMessage());
+                LOGGER.info("上传失败 errMsg =  "+e.getMessage());
             }finally {
                 if (null != out){
                     try {
                         out.close();
                     } catch (IOException e) {
-                        System.err.println("关闭流失败 ， errorMsg = " +e.getMessage());
+                        LOGGER.info("关闭流失败 ， errorMsg = " +e.getMessage());
                     }
                 }
             }

@@ -9,6 +9,8 @@ import com.boot.entity.UserInfo;
 import com.boot.service.UserInfoServiceImpl;
 import com.boot.service.UserService;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -25,7 +27,7 @@ import java.util.concurrent.atomic.AtomicLong;
 @RestController
 @RequestMapping("/ling/yan")
 public class HelloApplication {
-
+    private static final Logger LOGGER = LoggerFactory.getLogger(HelloApplication.class);
     @Resource
     private UserService userService;
 
@@ -42,7 +44,7 @@ public class HelloApplication {
 
     @RequestMapping("/greeting")
     public Greeting greeting(@RequestParam(value="name", defaultValue="World") String name){
-        System.err.println("asdfasdf54asdfas 111111");
+        LOGGER.info("asdfasdf54asdfas 111111");
         return new Greeting(counter.incrementAndGet(),
                 String.format(template, name));
     }
@@ -72,21 +74,21 @@ public class HelloApplication {
 
     @RequestMapping("/test")
     public String test(){
-        System.err.println(wiselySettings.getGender()+"---"+wiselySettings.getName());
+        LOGGER.info(wiselySettings.getGender()+"---"+wiselySettings.getName());
         wiselySettings.setGender("famale");
         wiselySettings.setName("Lucy");
-        System.err.println(wiselySettings.getGender()+"==="+wiselySettings.getName());
-        System.err.println(wisely2Settings.getGender()+"---"+wisely2Settings.getName());
+        LOGGER.info(wiselySettings.getGender()+"==="+wiselySettings.getName());
+        LOGGER.info(wisely2Settings.getGender()+"---"+wisely2Settings.getName());
 
-        System.err.println(wisely2Settings.getGender()+"---"+wisely2Settings.getName());
+        LOGGER.info(wisely2Settings.getGender()+"---"+wisely2Settings.getName());
         return "SUCCESS";
     }
     @RequestMapping(value = "/findByUsername",method = RequestMethod.GET)
     @RequiresPermissions("userInfo:view")
     public UserInfo findByUsername(String username,String password){
-        System.err.println(MessageFormat.format("登录 ： userName = {0} , passWord = {1}",username,password));
+        LOGGER.info(MessageFormat.format("登录 ： userName = {0} , passWord = {1}",username,password));
         UserInfo users = userInfoService.findByUsername(username);
-        System.err.println(JSON.toJSONString(users));
+        LOGGER.info(JSON.toJSONString(users));
         return users;
     }
 

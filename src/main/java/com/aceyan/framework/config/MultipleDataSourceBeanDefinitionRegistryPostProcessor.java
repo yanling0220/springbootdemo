@@ -1,5 +1,7 @@
 package com.aceyan.framework.config;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeansException;
 import org.springframework.beans.MutablePropertyValues;
 import org.springframework.beans.factory.annotation.AnnotatedGenericBeanDefinition;
@@ -28,6 +30,7 @@ import java.util.Map.Entry;
  */
 @Configuration
 public class MultipleDataSourceBeanDefinitionRegistryPostProcessor implements BeanDefinitionRegistryPostProcessor,EnvironmentAware {
+    private static final Logger LOGGER = LoggerFactory.getLogger(MultipleDataSourceBeanDefinitionRegistryPostProcessor.class);
     /**
      * 作用域对象
      */
@@ -53,7 +56,7 @@ public class MultipleDataSourceBeanDefinitionRegistryPostProcessor implements Be
 
     @Override
     public void postProcessBeanDefinitionRegistry(BeanDefinitionRegistry beanDefinitionRegistry) throws BeansException {
-        System.err.println("com.aceyan.framework.config.MultipleDataSourceBeanDefinitionRegistryPostProcessor.postProcessBeanDefinitionRegistry");
+        LOGGER.info("com.aceyan.framework.config.MultipleDataSourceBeanDefinitionRegistryPostProcessor.postProcessBeanDefinitionRegistry");
         try {
             if (!dataSourceMap.isEmpty()){
                 for(Entry<String,Map<String,Object>>entry:dataSourceMap.entrySet()){
@@ -72,7 +75,7 @@ public class MultipleDataSourceBeanDefinitionRegistryPostProcessor implements Be
 
     @Override
     public void postProcessBeanFactory(ConfigurableListableBeanFactory configurableListableBeanFactory) throws BeansException {
-        System.err.println("com.aceyan.framework.config.MultipleDataSourceBeanDefinitionRegistryPostProcessor.postProcessBeanFactory");
+        LOGGER.info("com.aceyan.framework.config.MultipleDataSourceBeanDefinitionRegistryPostProcessor.postProcessBeanFactory");
         /**
          * 设置为主数据源
          */
@@ -108,7 +111,7 @@ public class MultipleDataSourceBeanDefinitionRegistryPostProcessor implements Be
 
     @Override
     public void setEnvironment(Environment environment) {
-        System.err.println("com.aceyan.framework.config.MultipleDataSourceBeanDefinitionRegistryPostProcessor.setEnvironment");
+        LOGGER.info("com.aceyan.framework.config.MultipleDataSourceBeanDefinitionRegistryPostProcessor.setEnvironment");
         //获取到前缀是"custom.datasource."的属性列表值.
         RelaxedPropertyResolver propertyResolver = new RelaxedPropertyResolver(environment,"custom.datasource.");
         //获取到所有数据源的名称.
