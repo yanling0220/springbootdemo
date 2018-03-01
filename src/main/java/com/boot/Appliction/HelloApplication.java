@@ -73,7 +73,7 @@ public class HelloApplication {
 
     @RequestMapping("/queryAllUserByPage")
     public List<User> queryAllUserByPage(){
-        PageHelper.startPage(1,3 );
+        PageHelper.startPage(1,3 );/*此处分页功能没有实现 待研究 2018-03-01*/
         List<User> users = userInfoService.findAll();
         System.err.println("page mybatis : " + JSON.toJSONString(users));
         return users;
