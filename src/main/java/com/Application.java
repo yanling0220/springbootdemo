@@ -5,6 +5,7 @@ import com.aceyan.framework.properties.Wisely2Settings;
 import com.aceyan.framework.properties.WiselySettings;
 import com.aceyan.framework.servlet.MyServlet;
 import com.aceyan.framework.util.SpringUtil2;
+import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.Banner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
@@ -19,8 +20,6 @@ import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 
 
-
-
 /**
  * restful web
  *
@@ -29,6 +28,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter
  */
 @ControllerAdvice
 @ServletComponentScan
+@MapperScan("com.*.mapper")
 @SpringBootApplication(exclude = {DataSourceAutoConfiguration.class})
 public class Application extends WebMvcConfigurerAdapter {
 
@@ -85,3 +85,5 @@ public class Application extends WebMvcConfigurerAdapter {
     }*/
 
 }
+
+

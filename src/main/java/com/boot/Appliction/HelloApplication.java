@@ -6,8 +6,10 @@ import com.alibaba.fastjson.JSON;
 import com.boot.entity.Greeting;
 import com.boot.entity.User;
 import com.boot.entity.UserInfo;
+import com.boot.mapper.UserMapper;
 import com.boot.service.UserInfoServiceImpl;
 import com.boot.service.UserService;
+import com.github.pagehelper.PageHelper;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -60,10 +62,20 @@ public class HelloApplication {
     }
 
     @RequestMapping("/queryAllUser")
-    @Cacheable(value="UserCache")
+    //@Cacheable(value="UserCache")
     @RequiresPermissions("userInfo:view")
     public List<User> queryAllUser(){
        List<User> users =  userService.queryAllUser();
+        List<User> userList = userInfoService.findAll();
+        System.err.println("mybatis find all : " + JSON.toJSONString(userList));
+        return users;
+    }
+
+    @RequestMapping("/queryAllUserByPage")
+    public List<User> queryAllUserByPage(){
+        PageHelper.startPage(1,3 );
+        List<User> users = userInfoService.findAll();
+        System.err.println("page mybatis : " + JSON.toJSONString(users));
         return users;
     }
 
