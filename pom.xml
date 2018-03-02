@@ -142,6 +142,11 @@
             <artifactId>pagehelper</artifactId>
             <version>5.1.2</version>
         </dependency>
+        <!--mail-->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-mail</artifactId>
+        </dependency>
         <!-- tomcat的支持.-->
         <!--<dependency>
             <groupId>org.springframework.boot</groupId>
