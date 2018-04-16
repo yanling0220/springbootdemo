@@ -44,6 +44,7 @@ public class TestController {
     public String get(){
         //观察控制台的打印信息.
         System.out.println(druidDataSource.getUrl());
+        //System.err.println("测试打印restful接口");
         return"ok";
     }
     @RequestMapping("/get1")
@@ -101,4 +102,7 @@ public class TestController {
         });
         return"ok.4";
     }
+
+
+
 }

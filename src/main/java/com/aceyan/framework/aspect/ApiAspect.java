@@ -41,7 +41,7 @@ public class ApiAspect {
    /* @Pointcut("@annotation(org.springframework.web.bind.annotation.RequestMapping)")
     public void requestMethod(){}*/
 
-   @Around("apiController()")
+   //@Around("apiController()")
     public Object doValidate(ProceedingJoinPoint pjp) throws Throwable {
         Object object = pjp.proceed();
         LOGGER.info("doValidate");

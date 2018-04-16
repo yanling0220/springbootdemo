@@ -9,6 +9,9 @@ import com.boot.entity.UserInfo;
 import com.boot.mapper.UserMapper;
 import com.boot.service.UserInfoServiceImpl;
 import com.boot.service.UserService;
+import com.boot.test.EmailService;
+import com.boot.test.Task;
+import com.boot.test.TaskAsync;
 import com.github.pagehelper.PageHelper;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.slf4j.Logger;
@@ -30,10 +33,10 @@ import java.util.concurrent.atomic.AtomicLong;
 @RequestMapping("/ling/yan")
 public class HelloApplication {
     private static final Logger LOGGER = LoggerFactory.getLogger(HelloApplication.class);
-    @Resource
+    @Autowired
     private UserService userService;
 
-    @Resource
+    @Autowired
     private UserInfoServiceImpl userInfoService;
 
     @RequestMapping("/hello")
@@ -104,4 +107,27 @@ public class HelloApplication {
         return users;
     }
 
+    @Autowired
+    private EmailService emailService;
+    @RequestMapping(value = "/sendMail",method = RequestMethod.GET)
+    public String sendMail(){
+        System.err.println("发送邮件");
+        emailService.send();
+        return "ok";
+    }
+
+    @Autowired
+    private Task task;
+    @Autowired
+    private TaskAsync taskAsync;
+    @RequestMapping(value = "/task",method = RequestMethod.GET)
+    public String task() throws InterruptedException {
+        task.taskOne();
+        task.taskTwo();
+        task.taskThree();
+        taskAsync.taskAsyncOne();
+        taskAsync.taskAsyncTwo();
+        taskAsync.taskAsyncThree();
+        return "ok";
+    }
 }
